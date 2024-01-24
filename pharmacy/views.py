@@ -10,7 +10,7 @@ from .serializers import PharmacySerializer
 
 
 class PharmacyViewSet(ModelViewSet):
-    """API endpoint for managing pharmacies.
+    """APIs for managing pharmacies.
     This viewset provides CRUD operations for pharmacy objects.
 
     **Supported Actions:**
@@ -142,7 +142,7 @@ class PharmacyViewSet(ModelViewSet):
         return Response(serializer.data, status=status.HTTP_201_CREATED)
 
     def retrieve(self, request, pk=None):
-        """Retrieve a specific pharmacy by primary key or name.
+        """Retrieve a specific pharmacy by primary key.
 
         **Path Parameters:**
 
