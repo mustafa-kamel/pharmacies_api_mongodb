@@ -9,8 +9,9 @@ https://docs.djangoproject.com/en/5.0/topics/settings/
 For the full list of settings and their values, see
 https://docs.djangoproject.com/en/5.0/ref/settings/
 """
-
 from pathlib import Path
+
+from decouple import config as decouple_config
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -20,10 +21,10 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 # See https://docs.djangoproject.com/en/5.0/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = "8i4ujdt1mb+zh$)q03b#udeng+=051@9!4c1a+q!$a+*15cp0n"
+SECRET_KEY = decouple_config("SECRET_KEY")
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = decouple_config("DEBUG", default=False, cast=bool)
 
 ALLOWED_HOSTS = []
 
@@ -79,7 +80,7 @@ WSGI_APPLICATION = "pharmacies.wsgi.application"
 DATABASES = {
     "default": {
         "ENGINE": "djongo",
-        "NAME": "pharmacies",
+        "NAME": decouple_config("MONGO_DB"),
     }
 }
 
