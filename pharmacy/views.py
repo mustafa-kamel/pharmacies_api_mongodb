@@ -1,0 +1,4 @@
+
+
+class PharmacyViewSet(ModelViewSet):
+    pass
