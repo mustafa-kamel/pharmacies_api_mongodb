@@ -30,7 +30,7 @@ class PharmacyViewSet(ModelViewSet):
     * `IsAuthenticated`: All actions require authenticated users.
     """
 
-    queryset = Pharmacy.objects.all()
+    queryset = Pharmacy.objects.order_by("id")
     serializer_class = PharmacySerializer
     authentication_classes = [BasicAuthentication]
     permission_classes = [IsAuthenticated]
