@@ -12,28 +12,22 @@ This project is a simple Django REST API that integrates MongoDB as the main dat
 
 ## Setup
 ### Prerequisites
-- Python 3.8 or above
+- Python >= 3.8
+- Django
+- Django Rest Framework
 - MongoDB
-- Pip
 
 ### Steps
-1. Clone the repo
-   ```bash
-   git clone https://github.com/mustafa-kamel/pharmacies_api_mongodb.git
-   ```
-2. Create a virtual environment
-   ```bash
-   python -m venv venv  
-   ```
-3. Activate virtual environment
-   ```bash
-   source venv/bin/activate
-   ```
-4. Install requirements
-   ```
-   pip install -r requirements.txt
-   ```
-   
+1. Clone the repo `git@github.com:mustafa-kamel/pharmacies_api_mongodb.git`
+2. Create a virtual environment `python -m venv venv`
+3. Activate virtual environment `source venv/bin/activate`
+4. Install dependencies: `pip install -r requirements.txt`
+5. Copy the `.env.example` file to `.env` run `cp .env.example .env`
+6. Update the variables in `.env` file according to your configurations.
+7. Apply migrations: `python manage.py migrate`
+8. Create a superuser: `python manage.py createsuperuser`
+9. Run the server: `python manage.py runserver`
+
 ## Database 
 The project uses MongoDB as the backend database. Make sure MongoDB is installed locally and running on port 27017.
 
@@ -47,17 +41,15 @@ use pharmacies
 > If you want to use a cloud database instead you will need to add its configuration to the project settings file.
 
 
-## Environment Variables
-Copy the `.env.example` file to `.env` and configure:
-```bash
-cp .env.example .env
-```
-
-- MONGO_DB = pharmacies
+### Environment Variables
+Make sure to set the following environment variables in `.env`:
+- `MONGO_DB`: The mongodb name.
+- `SECRET_KEY`: Django secret key.
+- `DEBUG`: Set to `True` for development, `False` for production.
 
 
 ## Creating New User
-To be able to run the API you need to create a new user, you can do that simply from the django shell:
+- Use the Django admin interface or the API endpoint `/api/users/` to create a new user, Or you can do that simply from the django shell:
 ```bash
 python manage.py shell
 ```
@@ -65,49 +57,24 @@ python manage.py shell
 Then you need to create a new user using this code:
 ```python
 from django.contrib.auth.models import User
-User.objects.create_user(username="mk", password="password")
+User.objects.create_user(username="USERNAME", password="USER_PASSWORD")
 ```
 
-This user credentials will be used for basic authentication.
+These user credentials will be used for basic authentication.
 
 
 ## Running the API
-```
-python manage.py runserver
-```
+- Use the Django development server to run the API: `python manage.py runserver`
+- Access the API at `http://localhost:8000/pharmacies/`
 
-The API will be available at http://localhost:8000/pharmacies/
+
+## Running Tests
+- Use pytest to run tests: `coverage run -m pytest`.
+- Generate coverage report: `coverage report` or `coverage html` for HTML report that shows a 99% test coverage.
+
 
 ## API Documentation
-API docs are available at http://localhost:8000/api/schema/swagger-ui/ or http://localhost:8000/api/schema/redoc/ once the server is running.
-
-
-For full API Documentation for the API along with examples, you can run this postman collection and make sure you select the pharmacies envoirnment:
+- API documentation is available at http://localhost:8000/api/schema/swagger-ui/ or http://localhost:8000/api/schema/redoc/ once the server is running.
+- Also check the project's Postman collection for a comprehensive API documentation, including request examples; also you can select the `pharmacies` environment and run the Postman collection to validate its functionality.
 
 [<img src="https://run.pstmn.io/button.svg" alt="Run In Postman" style="width: 128px; height: 32px;">](https://app.getpostman.com/run-collection/1861377-d0deee14-feba-47fd-8810-b6f56cd65c84?action=collection%2Ffork&source=rip_markdown&collection-url=entityId%3D1861377-d0deee14-feba-47fd-8810-b6f56cd65c84%26entityType%3Dcollection%26workspaceId%3Df1fa4edc-8602-4006-bfa5-78678901d698)
-
-
-Also the postman collection contains tests for the requests, you can run the collection to validate it's working fine.
-
-
-## Testing
-Run the test cases using pytest with:
-```bash
-pytest
-```
-Or using coverage with:
-
-```bash
-coverage run -m pytest
-```
-
-The test coverage is 99%, you can view that in console after running the previous command with:
-
-```bash
-coverage report
-```
-Or you can generate an interactive version of it that you can open in your browser with:
-
-```bash
-coverage html
-```
